@@ -168,13 +168,12 @@ const TronCard = ({ to, text, icon, classes, glowColor }) => {
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       className={`
-        relative overflow-hidden rounded-xl p-6
+        relative overflow-hidden rounded-xl p-5
         bg-gradient-to-br ${classes}
-        transform transition-all duration-500
-        hover:scale-105 hover:-translate-y-2
-        shadow-lg hover:shadow-2xl
+        transform transition-all duration-300
+        hover:scale-105 hover:-translate-y-1
+        shadow-lg hover:shadow-xl
         group
-        tron-card-advanced
       `}
       style={{
         "--glow-color": glowColor,
@@ -182,7 +181,7 @@ const TronCard = ({ to, text, icon, classes, glowColor }) => {
     >
       {/* Glow Effect on Hover */}
       <div
-        className="absolute inset-0 rounded-xl opacity-0 transition-opacity duration-300"
+        className="absolute inset-0 opacity-0 transition-opacity duration-300"
         style={{
           background: `radial-gradient(circle at ${mousePos.x}px ${mousePos.y}px, ${glowColor} 0%, transparent 50%)`,
           opacity: isHovered ? 1 : 0,
@@ -191,25 +190,16 @@ const TronCard = ({ to, text, icon, classes, glowColor }) => {
 
       {/* Inner Content */}
       <div className="relative z-10 flex flex-col items-center justify-center text-center">
-        {/* Icon with Glow */}
-        <div className="text-4xl mb-3 tron-icon-glow filter drop-shadow-lg">
+        {/* Icon */}
+        <div className="text-4xl mb-2 transition-transform duration-300 group-hover:scale-110">
           {icon}
         </div>
 
-        {/* Text with Glitch Effect */}
-        <span className="text-white font-bold text-lg tracking-wider font-mono tron-neon-border inline-block px-3 py-1 rounded">
+        {/* Text */}
+        <span className="text-white font-semibold text-sm tracking-wide">
           {text}
         </span>
       </div>
-
-      {/* Corner Accents */}
-      <div className="absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2 border-white/50 rounded-tl-lg" />
-      <div className="absolute top-0 right-0 w-3 h-3 border-t-2 border-r-2 border-white/50 rounded-tr-lg" />
-      <div className="absolute bottom-0 left-0 w-3 h-3 border-b-2 border-l-2 border-white/50 rounded-bl-lg" />
-      <div className="absolute bottom-0 right-0 w-3 h-3 border-b-2 border-r-2 border-white/50 rounded-br-lg" />
-
-      {/* Scanline Effect */}
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-white/5 to-transparent transform -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
     </Link>
   );
 };
@@ -222,39 +212,42 @@ const NavigationLinks = () => {
   return (
     <>
       {/* Hero Section */}
-      <div className="relative flex flex-col items-center justify-center min-h-[40vh] px-4 pt-16 pb-8">
-        {/* Title with Glow */}
-        <h1 
-          className="text-5xl md:text-7xl font-bold mb-4 text-center tron-title-glow font-['Orbitron']"
-          data-text="CodeBuddi"
-        >
-          <span className="tron-holographic">CodeBuddi</span>
+      <div className="relative flex flex-col items-center justify-center min-h-[35vh] px-4 pt-16 pb-8">
+        {/* Title */}
+        <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 text-center">
+          <span className="bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 bg-clip-text text-transparent">
+            CodeBuddi
+          </span>
         </h1>
         
         {/* Subtitle */}
-        <p className="text-xl md:text-2xl text-gray-400 mb-8 font-['Rajdhani'] text-center max-w-2xl">
-          <span className="text-cyan-400">Next-Generation</span> Online IDE with 
-          <span className="text-purple-400"> AI-Powered</span> Code Generation
+        <p className="text-lg md:text-xl text-gray-600 dark:text-gray-300 mb-6 text-center max-w-2xl">
+          Next-Generation Online IDE with{' '}
+          <span className="text-cyan-500 font-medium">AI-Powered</span> Code Generation
         </p>
 
-        {/* Animated Tagline */}
-        <div className="flex items-center gap-2 text-sm md:text-base text-gray-500 font-['JetBrains_Mono']">
-          <span className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse" />
-          <span>Ready to code</span>
-          <span className="animate-bounce">_</span>
+        {/* Features Pills */}
+        <div className="flex flex-wrap justify-center gap-2 mb-8">
+          {['20+ Languages', 'AI Code Gen', 'Real-time Preview', 'Share & Collaborate'].map((feature, idx) => (
+            <span 
+              key={idx}
+              className="px-3 py-1 text-xs font-medium bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 rounded-full"
+            >
+              {feature}
+            </span>
+          ))}
         </div>
 
-        {/* Decorative Line */}
-        <div className="mt-8 flex items-center gap-4">
-          <div className="h-px w-20 bg-gradient-to-r from-transparent to-cyan-500" />
-          <div className="w-2 h-2 bg-cyan-400 rotate-45" />
-          <div className="h-px w-20 bg-gradient-to-l from-transparent to-cyan-500" />
+        {/* CTA Indicator */}
+        <div className="flex items-center gap-2 text-sm text-gray-500">
+          <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
+          <span>Select a language to start coding</span>
         </div>
       </div>
 
       {/* Language Cards Grid */}
       <div className="flex justify-center items-start p-4 pb-12">
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 md:gap-6 max-w-7xl w-full">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3 md:gap-4 max-w-7xl w-full">
           {navLinks.map(({ to, text, icon, classes, glowColor }) => (
             <TronCard
               key={to}

@@ -48,11 +48,29 @@ const EditorSection = ({
     return str.charAt(0).toUpperCase() + str.slice(1);
   };
 
+  const getGradient = () => {
+    switch (language) {
+      case "html":
+        return "from-orange-500 to-red-500";
+      case "css":
+        return "from-blue-500 to-cyan-500";
+      case "javascript":
+        return "from-yellow-400 to-amber-500";
+      default:
+        return "from-gray-500 to-gray-600";
+    }
+  };
+
   return (
-    <div className="dark:bg-gray-800 dark:border-[#00f0ff]/30 bg-gray-800 rounded-lg border border-[#00f0ff]/20 hover:border-[#00f0ff]/50 transition-all duration-300 shadow-lg shadow-[#00f0ff]/10">
-      <div className="flex items-center my-2 ml-3">
-        {React.createElement(getLanguageIcon(), { className: "mr-2 text-xl text-[#00f0ff]" })}
-        <h2 className="text-xl font-['Orbitron'] text-white">{capFirst(language)} Editor</h2>
+    <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 overflow-hidden">
+      {/* Section Header */}
+      <div className="flex items-center px-4 py-3 bg-gray-50 dark:bg-gray-800/50 border-b border-gray-200 dark:border-gray-700">
+        <div className={`p-2 bg-gradient-to-br ${getGradient()} rounded-lg mr-3`}>
+          {React.createElement(getLanguageIcon(), { className: "text-lg text-white" })}
+        </div>
+        <h2 className="text-base font-semibold text-gray-700 dark:text-gray-200">
+          {capFirst(language)}
+        </h2>
       </div>
       <MonacoEditor
         language={language}
@@ -78,7 +96,7 @@ const EditorSection = ({
           fontSize,
           readOnly,
         }}
-        height="400px"
+        height="300px"
         theme={theme}
       />
     </div>
@@ -1259,7 +1277,7 @@ const Editor = ({ isDarkMode, value, title, shareIdData }) => {
   ];
 
   return (
-    <div className="mx-auto p-4">
+    <div className="mx-auto p-4 max-w-7xl">
       <div className="grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 gap-4">
         {languages.map((language) => (
           <EditorSection
@@ -1274,59 +1292,75 @@ const Editor = ({ isDarkMode, value, title, shareIdData }) => {
           />
         ))}
       </div>
-      <div className="mt-4 flex flex-wrap justify-center gap-4">
+      
+      {/* Action Buttons */}
+      <div className="mt-4 flex flex-wrap justify-center gap-3">
         {buttonData.map(({ onClick, color, icon, text, disabled }, index) => (
           <button
             key={index}
             onClick={onClick}
-            className={`px-6 py-2 ${color} text-white inline-flex place-content-center rounded-md w-full cursor-pointer transition-transform duration-200 sm:w-auto md:hover:scale-105 focus:outline-none disabled:opacity-75 disabled:cursor-not-allowed`}
+            className={`px-5 py-2.5 ${color} text-white inline-flex items-center justify-center rounded-lg w-full sm:w-auto font-medium text-sm transition-all duration-200 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500 disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:shadow-none`}
             disabled={disabled}
           >
-            {icon}
+            <span className="mr-2">{icon}</span>
             {text}
           </button>
         ))}
       </div>
-      <div className="mt-4 relative flex flex-col items-start dark:bg-gray-800 dark:border-[#00f0ff]/30 bg-gray-800 rounded-t-lg border border-[#00f0ff]/20">
+      
+      {/* Preview Panel */}
+      <div className="mt-4 relative flex flex-col items-start bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 overflow-hidden">
+        {/* Preview Header */}
+        <div className="flex items-center justify-between w-full px-4 py-3 bg-gray-50 dark:bg-gray-800/50 border-b border-gray-200 dark:border-gray-700">
+          <div className="flex items-center space-x-2">
+            <MdPreview className="text-xl text-cyan-500" />
+            <h2 className="text-lg font-semibold text-gray-700 dark:text-gray-200">Preview</h2>
+          </div>
+          
+          <div className="flex items-center gap-2">
+            {/* Refresh Button */}
+            <button
+              onClick={handleRefresh}
+              disabled={isRefreshing || isOverlayVisible}
+              className={`p-2 rounded-lg transition-all duration-300 ${
+                isRefreshing 
+                  ? "text-cyan-500 animate-spin" 
+                  : "text-gray-500 hover:text-cyan-500 hover:bg-gray-100 dark:hover:bg-gray-700"
+              }`}
+              title="Refresh Preview"
+            >
+              <IoMdRefreshCircle className="text-2xl" />
+            </button>
+
+            {/* Fullscreen Button */}
+            <button
+              onClick={openPreviewFullScreen}
+              disabled={isOverlayVisible}
+              className="p-2 rounded-lg text-gray-500 hover:text-cyan-500 hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-300"
+              title="Fullscreen Preview"
+            >
+              <SlSizeFullscreen className="text-xl" />
+            </button>
+          </div>
+        </div>
+        
+        {/* Loading Overlay */}
         {isOverlayVisible && overlayText && (
-          <div className="absolute inset-0 bg-transparent flex justify-center items-center z-[2] backdrop-blur-[2px] bg-gray-900/50">
-            <div className="bg-gray-800/90 p-4 rounded-lg shadow-lg shadow-[#00f0ff]/20 flex items-center space-x-2 sm:w-auto border border-[#00f0ff]/30">
-              <FaSpinner className="text-2xl text-[#00f0ff] animate-spin" />
-              <span className="text-lg font-semibold text-[#00f0ff] font-['Orbitron']">
+          <div className="absolute inset-0 bg-white/90 dark:bg-gray-900/90 flex justify-center items-center z-10">
+            <div className="flex items-center space-x-3 bg-white dark:bg-gray-800 px-6 py-4 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700">
+              <FaSpinner className="text-2xl text-cyan-500 animate-spin" />
+              <span className="text-sm font-medium text-gray-600 dark:text-gray-300">
                 {overlayText}
               </span>
             </div>
           </div>
         )}
 
-        <div className="flex items-center z-[3]">
-          <MdPreview className="text-2xl mt-3 ml-3 text-[#00f0ff]" />
-          <h2 className="text-xl mt-3 ml-3 font-['Orbitron'] text-white">Preview</h2>
-        </div>
-        <button
-          onClick={openPreviewFullScreen}
-          disabled={isOverlayVisible}
-          className="absolute top-16 right-2 w-10 h-10 bg-transparent border-2 border-[#00f0ff]/50 text-[#00f0ff] rounded-md cursor-pointer transition-all duration-300 hover:bg-[#00f0ff]/10 hover:border-[#00f0ff] hover:shadow-lg hover:shadow-[#00f0ff]/20"
-          title="Fullscreen Preview"
-        >
-          <SlSizeFullscreen className="inline-flex text-xl pb-[3px]" />
-        </button>
-
-        <button
-          onClick={handleRefresh}
-          disabled={isRefreshing || isOverlayVisible}
-          className={`absolute top-2 right-2 w-10 h-10 bg-transparent rounded-md cursor-pointer transition-all duration-300 hover:text-[#00f0ff] ${
-            isRefreshing ? "animate-spin text-[#00f0ff]" : "text-gray-400"
-          }`}
-          title="Refresh Preview"
-        >
-          <IoMdRefreshCircle className="inline-flex text-4xl" />
-        </button>
-
+        {/* Iframe Preview */}
         <iframe
           ref={iframeRef}
           title="Preview"
-          className="w-full mt-4 h-96 bg-white text-black border border-[#00f0ff]/20 dark:border-gray-700"
+          className="w-full h-96 bg-white"
           referrerPolicy="no-referrer"
         />
       </div>

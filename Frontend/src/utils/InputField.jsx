@@ -43,28 +43,30 @@ const InputField = ({
         {label} <span className="text-red-600">*</span>
       </label>
 
-      <input
-        id={name}
-        type={type}
-        name={name}
-        value={value}
-        onChange={onChange}
-        required={required}
-        autoComplete={getAutoCompleteValue()}
-        disabled={disabled}
-        className="w-full p-3 text-gray-700 dark:text-gray-300 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 disabled:bg-gray-200 dark:disabled:bg-gray-700 disabled:cursor-not-allowed"
-      />
-
-      {isPasswordField && (
-        <button
-          type="button"
-          className="absolute cursor-pointer right-3 top-[70%] transform -translate-y-1/2 text-gray-500 dark:text-gray-300 disabled:cursor-not-allowed"
-          onClick={onTogglePassword}
+      <div className="relative">
+        <input
+          id={name}
+          type={type}
+          name={name}
+          value={value}
+          onChange={onChange}
+          required={required}
+          autoComplete={getAutoCompleteValue()}
           disabled={disabled}
-        >
-          {showPassword ? "Hide" : "Show"}
-        </button>
-      )}
+          className="w-full p-3 bg-gray-50/50 dark:bg-gray-800/50 text-gray-700 dark:text-gray-300 border border-gray-300 dark:border-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-[#00f0ff] dark:focus:ring-[#00f0ff]/50 disabled:bg-gray-200 dark:disabled:bg-gray-700/50 disabled:cursor-not-allowed transition-all duration-300 backdrop-blur-sm"
+        />
+
+        {isPasswordField && (
+          <button
+            type="button"
+            className="absolute cursor-pointer right-3 top-1/2 transform -translate-y-1/2 text-gray-500 dark:text-[#00f0ff] hover:text-[#00d4ff] disabled:cursor-not-allowed font-mono text-xs uppercase tracking-tighter"
+            onClick={onTogglePassword}
+            disabled={disabled}
+          >
+            {showPassword ? "Hide" : "Show"}
+          </button>
+        )}
+      </div>
     </div>
   );
 };

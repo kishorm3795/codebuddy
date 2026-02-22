@@ -142,26 +142,25 @@ const Login = () => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-[80dvh] bg-gray-100 dark:bg-gray-950 relative overflow-hidden">
-      {/* Background Effects */}
-      <div className="absolute inset-0 tron-grid opacity-20"></div>
-      <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
-        <div className="absolute top-10 left-10 w-32 h-32 bg-[#00f0ff] rounded-full filter blur-[100px] opacity-10 animate-pulse"></div>
-        <div className="absolute bottom-10 right-10 w-40 h-40 bg-[#bf00ff] rounded-full filter blur-[100px] opacity-10 animate-pulse"></div>
+    <div className="flex items-center justify-center min-h-[80dvh] bg-gray-50 dark:bg-gray-950 px-4">
+      {/* Subtle Background */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-cyan-500/5 rounded-full blur-3xl" />
+        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-purple-500/5 rounded-full blur-3xl" />
       </div>
 
-      <div className="bg-white dark:bg-gray-900/90 p-8 rounded-lg shadow-2xl w-full max-w-md relative z-10 tron-border">
+      <div className="w-full max-w-md bg-white dark:bg-gray-900 rounded-2xl shadow-xl p-8 relative">
         {/* Header */}
         <div className="text-center mb-8">
-          <h2 className="text-3xl font-bold tron-text-gradient mb-2 font-['Orbitron']">
-            CodeBuddi
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
+            Welcome Back
           </h2>
-          <p className="text-gray-500 dark:text-gray-400 font-mono text-sm">
-            Access Your Workspace
+          <p className="text-sm text-gray-500 dark:text-gray-400">
+            Sign in to continue to CodeBuddi
           </p>
         </div>
 
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className="space-y-5">
           <InputField
             label="Email"
             type="email"
@@ -184,90 +183,72 @@ const Login = () => {
           />
 
           {error && (
-            <p className="text-[#ff0055] dark:text-[#ff0055] text-center mb-4 font-mono text-sm">
-              ⚠ {error}
+            <p className="text-red-500 text-sm text-center">
+              {error}
             </p>
           )}
 
           <button
             type="submit"
-            className="w-full py-3 cursor-pointer text-sm bg-gradient-to-r from-[#00f0ff] to-[#00d4ff] text-gray-900 font-bold rounded-md hover:from-[#00d4ff] hover:to-[#00f0ff] focus:outline-none transition-all duration-300 font-['Orbitron'] tracking-wider shadow-lg shadow-[#00f0ff]/20 hover:shadow-[#00f0ff]/40 transform hover:scale-[1.02]"
+            className="w-full py-3 cursor-pointer text-sm bg-gradient-to-r from-cyan-500 to-blue-500 text-white font-semibold rounded-xl hover:from-cyan-600 hover:to-blue-600 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2 transition-all duration-200 disabled:opacity-70 disabled:cursor-not-allowed"
             disabled={loading}
           >
             {loading ? (
-              <>
-                <TbLoader className="animate-spin text-xl inline-block mr-2" />
-                Authenticating...
-              </>
+              <span className="flex items-center justify-center">
+                <TbLoader className="animate-spin text-xl mr-2" />
+                Signing in...
+              </span>
             ) : (
-              "Login"
+              "Sign In"
             )}
           </button>
         </form>
 
         <div className="my-6 flex items-center">
-          <div className="flex-grow border-t border-gray-300 dark:border-gray-700"></div>
-          <span className="flex-shrink mx-4 text-gray-500 dark:text-gray-400 font-mono text-xs">
-            OR CONNECT WITH
+          <div className="flex-grow border-t border-gray-200 dark:border-gray-700"></div>
+          <span className="flex-shrink mx-4 text-xs text-gray-400 uppercase tracking-wider">
+            Or continue with
           </span>
-          <div className="flex-grow border-t border-gray-300 dark:border-gray-700"></div>
+          <div className="flex-grow border-t border-gray-200 dark:border-gray-700"></div>
         </div>
 
-        <div className="flex justify-center w-full">
-          <div className="relative w-fit max-w-full">
-            <GoogleLogin
-              onSuccess={handleGoogleLoginSuccess}
-              onError={handleGoogleLoginError}
-              theme="filled_black"
-              shape="rectangular"
-              scope="profile email"
-              text="continue_with"
-              useOneTap
-            />
-
-            {loading && (
-              <div
-                className="absolute inset-0 z-50 bg-transparent cursor-not-allowed"
-                onClick={(e) => {
-                  e.preventDefault();
-                  e.stopPropagation();
-                }}
-              ></div>
-            )}
-          </div>
+        <div className="flex justify-center">
+          <GoogleLogin
+            onSuccess={handleGoogleLoginSuccess}
+            onError={handleGoogleLoginError}
+            theme="filled_black"
+            shape="rectangular"
+            scope="profile email"
+            text="continue_with"
+            useOneTap
+          />
         </div>
 
         {googleLoginError && (
-          <p className="text-[#ff0055] dark:text-[#ff0055] text-center my-4 font-mono text-sm">
-            ⚠ {googleLoginError}
+          <p className="text-red-500 text-sm text-center mt-4">
+            {googleLoginError}
           </p>
         )}
 
-        <div className="mt-6 text-center">
-          <p className="text-sm text-gray-600 dark:text-gray-300">
-            New to CodeBuddi?{" "}
+        <div className="mt-8 text-center space-y-2">
+          <p className="text-sm text-gray-600 dark:text-gray-400">
+            Don't have an account?{" "}
             <button
               onClick={() => navigate("/register")}
-              className="text-[#00f0ff] cursor-pointer hover:text-[#00d4ff] hover:underline decoration-[#00f0ff] underline-offset-4 transition-all font-mono"
+              className="text-cyan-500 font-medium hover:text-cyan-600 transition-colors"
             >
-              Create Account
+              Sign up
             </button>
           </p>
-          <p className="text-sm text-gray-600 dark:text-gray-300 mt-3">
+          <p className="text-sm">
             <button
               onClick={() => navigate("/forgot-password")}
-              className="text-[#00f0ff] cursor-pointer hover:text-[#00d4ff] hover:underline decoration-[#00f0ff] underline-offset-4 transition-all font-mono"
+              className="text-gray-500 hover:text-cyan-500 transition-colors"
             >
-              Forgot Password?
+              Forgot password?
             </button>
           </p>
         </div>
-
-        {/* Decorative Elements */}
-        <div className="absolute -top-2 -left-2 w-6 h-6 border-t-2 border-l-2 border-[#00f0ff]"></div>
-        <div className="absolute -top-2 -right-2 w-6 h-6 border-t-2 border-r-2 border-[#00f0ff]"></div>
-        <div className="absolute -bottom-2 -left-2 w-6 h-6 border-b-2 border-l-2 border-[#00f0ff]"></div>
-        <div className="absolute -bottom-2 -right-2 w-6 h-6 border-b-2 border-r-2 border-[#00f0ff]"></div>
       </div>
     </div>
   );

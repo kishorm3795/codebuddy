@@ -285,77 +285,76 @@ const SharedLinks = () => {
   const visibleLinks = sharedLinks.slice(startIndex, startIndex + itemsPerPage);
 
   return (
-    <div className="flex justify-center px-12 pb-12 motion-delay-[1400ms] motion-preset-rebound-down">
+    <div className="flex justify-center px-4 pb-12">
       <div className="w-full max-w-screen-lg">
         <div className="mb-6">
           {isLoggedIn && visibleLinks.length > 0 && (
-            <div className="flex items-center">
-              <h2 className="text-2xl font-bold mb-4 text-left mr-4 text-gray-700 underline underline-offset-2 decoration-4 decoration-blue-500 hover:decoration-blue-400 dark:decoration-blue-600 dark:text-gray-300 dark:hover:decoration-blue-700">
-                Shared Links
-              </h2>
-              <button
-                onClick={handleRefresh}
-                disabled={isRefreshing}
-                title="refresh"
-                className={`bg-blue-500 text-white px-2 py-2 rounded-full mb-4 transform transition duration-200 ease-in-out cursor-pointer hover:bg-blue-600 hover:scale-95 focus:outline-none ${
-                  isRefreshing ? "animate-spin" : ""
-                }`}
-              >
-                <HiRefresh />
-              </button>
-            </div>
-          )}
+            <>
+              <div className="flex items-center justify-between mb-6">
+                <h2 className="text-xl font-bold text-gray-800 dark:text-gray-200">
+                  Shared Links
+                </h2>
+                <button
+                  onClick={handleRefresh}
+                  disabled={isRefreshing}
+                  title="Refresh"
+                  className={`p-2 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-cyan-50 dark:hover:bg-gray-700 hover:text-cyan-500 transition-all duration-200 ${
+                    isRefreshing ? "animate-spin text-cyan-500" : ""
+                  }`}
+                >
+                  <HiRefresh className="text-xl" />
+                </button>
+              </div>
 
-          {isLoggedIn && visibleLinks.length > 0 && (
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 justify-items-center">
-              {visibleLinks.map(({ title, shareId, expiryTime }, index) => {
-                const colorClass = buttonColors[index % buttonColors.length];
-                return (
-                  <div key={index} className="relative w-full">
-                    <div className="flex justify-between items-center w-full">
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                {visibleLinks.map(({ title, shareId, expiryTime }, index) => {
+                  const colorClass = buttonColors[index % buttonColors.length];
+                  return (
+                    <div 
+                      key={index} 
+                      className="group relative bg-white dark:bg-gray-800 rounded-xl shadow-md hover:shadow-xl border border-gray-200 dark:border-gray-700 overflow-hidden transition-all duration-300 hover:-translate-y-1"
+                    >
                       <Link
                         to={`${baseUrl}/${shareId}`}
                         aria-label={title}
-                        title={`${title}\n${
-                          new Date(expiryTime).toLocaleString() || ""
-                        }`}
-                        className={`w-full px-8 py-4 text-xl font-semibold ${colorClass} text-white text-center rounded-lg shadow-lg whitespace-nowrap overflow-hidden text-ellipsis hover:scale-105 transform transition-all duration-300 sm:px-6 sm:py-3 sm:text-lg md:px-8 md:py-4 lg:px-8 lg:py-4`}
+                        title={`${title}\n${new Date(expiryTime).toLocaleString() || ""}`}
+                        className={`block px-4 py-4 text-sm font-medium text-white text-center ${colorClass} transition-colors duration-200`}
                       >
                         {title
                           ? `${title.charAt(0).toUpperCase()}${
-                              title.length > 30
-                                ? title.slice(1, 30) + "..." + title.slice(-3)
+                              title.length > 25
+                                ? title.slice(1, 25) + "..." 
                                 : title.slice(1)
                             }`
                           : "Untitled"}
                       </Link>
 
-                      <div className="flex flex-col items-center ml-2 w-10 space-y-0.5">
+                      <div className="flex">
                         <button
                           onClick={() => handleCopy(shareId)}
                           title="Copy link"
-                          className="w-full py-1.5 text-white bg-green-500 hover:bg-green-700 rounded-lg cursor-pointer focus:outline-none transform transition duration-200 ease-in-out hover:scale-105"
+                          className="flex-1 py-2.5 text-gray-600 dark:text-gray-400 bg-gray-50 dark:bg-gray-700/50 hover:bg-green-50 dark:hover:bg-green-900/30 hover:text-green-600 transition-colors duration-200 flex items-center justify-center"
                         >
                           {buttonStates[shareId]?.text === "Copied" ? (
-                            <MdDone className="mx-auto" />
+                            <MdDone className="text-lg" />
                           ) : (
-                            <FiClipboard className="mx-auto" />
+                            <FiClipboard className="text-lg" />
                           )}
                         </button>
 
                         <button
                           onClick={() => handleDelete(shareId)}
                           title="Delete"
-                          className="w-full py-1.5 text-white bg-red-500 hover:bg-red-700 rounded-lg cursor-pointer focus:outline-none transform transition duration-200 ease-in-out hover:scale-105"
+                          className="flex-1 py-2.5 text-gray-600 dark:text-gray-400 bg-gray-50 dark:bg-gray-700/50 hover:bg-red-50 dark:hover:bg-red-900/30 hover:text-red-600 transition-colors duration-200 border-l border-gray-200 dark:border-gray-600"
                         >
-                          <CgTrash className="mx-auto" />
+                          <CgTrash className="text-lg" />
                         </button>
                       </div>
                     </div>
-                  </div>
-                );
-              })}
-            </div>
+                  );
+                })}
+              </div>
+            </>
           )}
 
           {isLoggedIn && sharedLinks.length > itemsPerPage && (
@@ -363,7 +362,7 @@ const SharedLinks = () => {
               <button
                 onClick={handlePrev}
                 disabled={currentPage === 1}
-                className="bg-blue-500 text-white px-6 py-2 rounded-lg cursor-pointer transform transition duration-200 ease-in-out hover:scale-105 flex items-center"
+                className="px-4 py-2 bg-cyan-500 text-white rounded-lg hover:bg-cyan-600 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200 flex items-center text-sm font-medium"
               >
                 <FiArrowLeft className="mr-2" />
                 Previous
@@ -371,7 +370,7 @@ const SharedLinks = () => {
               <button
                 onClick={handleNext}
                 disabled={currentPage * itemsPerPage >= sharedLinks.length}
-                className="bg-blue-500 text-white px-6 py-2 rounded-lg cursor-pointer transform transition duration-200 ease-in-out hover:scale-105 flex items-center"
+                className="px-4 py-2 bg-cyan-500 text-white rounded-lg hover:bg-cyan-600 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200 flex items-center text-sm font-medium"
               >
                 Next
                 <FiArrowRight className="ml-2" />
@@ -385,3 +384,4 @@ const SharedLinks = () => {
 };
 
 export default SharedLinks;
+

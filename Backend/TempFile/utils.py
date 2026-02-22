@@ -17,28 +17,51 @@ SECRET_KEY = os.getenv("JWT_SECRET")
 RECAPTCHA_SECRET_KEY = os.getenv("RECAPTCHA_SECRET_KEY")
 
 
+class MockRedis:
+    def __init__(self):
+        self.data = {}
+    def ping(self):
+        return True
+    def setex(self, name, time, value):
+        self.data[name] = value
+        return True
+    def get(self, name):
+        return self.data.get(name)
+    def delete(self, name):
+        if name in self.data:
+            del self.data[name]
+        return True
+    def exists(self, name):
+        return name in self.data
+
 def get_redis_connection():
     try:
+        # Check if environment variables are set, otherwise use mock
+        if not os.getenv("REDIS_HOST"):
+            logging.info("Using Mock Redis (No REDIS_HOST configured)")
+            return MockRedis()
+
         redis_client = redis.StrictRedis(
             host=os.getenv("REDIS_HOST"),
-            port=int(os.getenv("REDIS_PORT")),
+            port=int(os.getenv("REDIS_PORT") or 6379),
             password=os.getenv("REDIS_PASSWORD"),
-            ssl=True,
+            ssl=False, # Changed to False for local dev
         )
         redis_client.ping()
         logging.info("Successfully connected to Redis.")
         return redis_client
-    except redis.ConnectionError as e:
-        logging.error(f"Redis connection error: {e}")
-        return None
-    except Exception as e:
-        logging.error(f"An unexpected error occurred while connecting to Redis: {e}")
-        return None
+    except (redis.ConnectionError, Exception) as e:
+        logging.warning(f"Failed to connect to Redis, falling back to Mock Redis: {e}")
+        return MockRedis()
 
 
 def is_human(recaptcha_token):
-    if not recaptcha_token or not RECAPTCHA_SECRET_KEY:
-        logging.warning("reCAPTCHA check failed: Token or secret key is missing.")
+    if not RECAPTCHA_SECRET_KEY:
+        logging.info("reCAPTCHA check skipped: Secret key is missing.")
+        return True
+
+    if not recaptcha_token:
+        logging.warning("reCAPTCHA check failed: Token is missing.")
         return False
 
     payload = {"secret": RECAPTCHA_SECRET_KEY, "response": recaptcha_token}

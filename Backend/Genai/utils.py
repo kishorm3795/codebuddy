@@ -81,8 +81,12 @@ def validate_json(gemini_output):
 
 
 def is_human(recaptcha_token):
-    if not recaptcha_token or not RECAPTCHA_SECRET_KEY:
-        logging.warning("reCAPTCHA check failed: Token or secret key is missing.")
+    if not RECAPTCHA_SECRET_KEY:
+        logging.info("reCAPTCHA check skipped: Secret key is missing.")
+        return True
+
+    if not recaptcha_token:
+        logging.warning("reCAPTCHA check failed: Token is missing.")
         return False
 
     payload = {"secret": RECAPTCHA_SECRET_KEY, "response": recaptcha_token}

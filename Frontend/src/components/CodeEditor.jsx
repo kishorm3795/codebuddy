@@ -1161,36 +1161,51 @@ const CodeEditor = ({
   const RenderOutput = () => (
     <>
       <div className="mt-4">
-        <div className="dark:bg-gray-800 dark:border-gray-700 bg-gray-300 rounded-t-lg p-2">
+        <div className="bg-gray-100 dark:bg-gray-800 rounded-t-lg p-3 border border-gray-200 dark:border-gray-700">
           <div className="flex items-center space-x-2">
-            <BiTerminal className="ml-2 text-2xl" />
-            <h2 className="text-xl">Output</h2>
+            <BiTerminal className="ml-2 text-xl text-cyan-500" />
+            <h2 className="text-lg font-semibold text-gray-700 dark:text-gray-200">Output</h2>
           </div>
         </div>
 
         <pre
           ref={terminalRef}
-          className="select-text font-mono text-xs font-semibold lg:text-sm focus:outline-none min-h-20 max-h-[295px] overflow-auto p-3 rounded-b-lg [scrollbar-width:thin] bg-[#eaeaea] text-[#292929] dark:bg-[#262636] dark:text-[#24a944]"
+          className="select-text font-mono text-xs font-semibold lg:text-sm focus:outline-none min-h-20 max-h-[295px] overflow-auto p-4 rounded-b-lg bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-green-400 border border-t-0 border-gray-200 dark:border-gray-700"
         >
           {output}
         </pre>
       </div>
-      <p className="ml-2 text-sm text-gray-500 italic">
+      <p className="ml-2 text-xs text-gray-500 italic">
         Output may not be accurate.
       </p>
     </>
   );
 
   return (
-    <div className="mx-auto p-4">
-      <div className="dark:bg-gray-800 dark:border-gray-700 bg-gray-300 rounded-lg">
-        <div className="flex items-center my-2 ml-3 pt-2">
-          {reactIcon &&
-            React.createElement(reactIcon, { className: "text-xl mr-2" })}
-          <h2 className="text-xl">
-            {language.charAt(0).toUpperCase() + language.slice(1)} Editor
-          </h2>
+    <div className="mx-auto p-4 max-w-6xl">
+      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 overflow-hidden">
+        {/* Editor Header */}
+        <div className="flex items-center justify-between px-4 py-3 bg-gray-50 dark:bg-gray-800/50 border-b border-gray-200 dark:border-gray-700">
+          <div className="flex items-center space-x-3">
+            {reactIcon && (
+              <div className="p-2 bg-gradient-to-br from-cyan-500 to-blue-500 rounded-lg">
+                {React.createElement(reactIcon, { className: "text-lg text-white" })}
+              </div>
+            )}
+            <h2 className="text-lg font-semibold text-gray-800 dark:text-white">
+              {language.charAt(0).toUpperCase() + language.slice(1)} Editor
+            </h2>
+          </div>
+          
+          {/* Keyboard Shortcut Hint */}
+          <div className="hidden sm:flex items-center gap-2 text-xs text-gray-500">
+            <kbd className="px-2 py-1 bg-gray-200 dark:bg-gray-700 rounded text-xs">Ctrl</kbd>
+            <span>+</span>
+            <kbd className="px-2 py-1 bg-gray-200 dark:bg-gray-700 rounded text-xs">S</kbd>
+            <span className="ml-1">to save</span>
+          </div>
         </div>
+        
         <MonacoEditor
           language={language === "mongodb" ? "javascript" : language}
           value={code}
@@ -1219,16 +1234,18 @@ const CodeEditor = ({
           }}
         />
       </div>
-      <div className="mt-4 flex flex-wrap justify-center gap-4">
+      
+      {/* Action Buttons */}
+      <div className="mt-4 flex flex-wrap justify-center gap-3">
         {buttonsConfig.map(
           ({ action, bgColor, icon, text, disabled }, index) => (
             <button
               key={index}
               onClick={action}
-              className={`px-6 py-2 ${bgColor} text-white inline-flex place-content-center rounded-md w-full cursor-pointer transition-transform duration-200 sm:w-auto md:hover:scale-105 focus:outline-none disabled:opacity-75 disabled:cursor-not-allowed`}
+              className={`px-5 py-2.5 ${bgColor} text-white inline-flex items-center justify-center rounded-lg w-full sm:w-auto font-medium text-sm transition-all duration-200 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500 disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:shadow-none`}
               disabled={disabled}
             >
-              {icon}
+              <span className="mr-2">{icon}</span>
               {text}
             </button>
           )

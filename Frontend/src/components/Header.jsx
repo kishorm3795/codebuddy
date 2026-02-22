@@ -165,103 +165,111 @@ const Header = ({ isDarkMode, toggleTheme }) => {
   return (
     <>
       {isLoading && (
-        <div className="fixed inset-0 bg-opacity-50 bg-transparent backdrop-blur-[2px] dark:bg-opacity-70 flex justify-center items-center z-50 overflow-hidden">
-          <div className="flex items-center space-x-3 bg-white dark:bg-gray-800 p-4 rounded-lg shadow-lg border border-cyan-500/30">
-            <FaSpinner className="text-4xl text-[#00f0ff] animate-spin" />
-            <span className="text-lg font-semibold text-gray-700 dark:text-gray-300 font-mono">
-              Initializing CodeBuddi...
+        <div className="fixed inset-0 bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm flex justify-center items-center z-50">
+          <div className="flex items-center space-x-3 bg-white dark:bg-gray-800 px-6 py-4 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700">
+            <FaSpinner className="text-2xl text-cyan-500 animate-spin" />
+            <span className="text-sm font-medium text-gray-600 dark:text-gray-300">
+              Loading...
             </span>
           </div>
         </div>
       )}
 
-      <header className="bg-gray-900/95 dark:bg-gray-900/95 text-white p-4 relative z-10 tron-glass backdrop-blur-xl">
-        <div className="max-w-6xl mx-auto flex justify-between items-center">
-          <Link
-            to={`${baseUrl}`}
-            aria-label="Go to CodeBuddi homepage"
-            className="text-2xl ml-2.5 font-bold tracking-wide hover:text-[#00f0ff] transition-all duration-300 focus:outline-none group"
-          >
-            <span className="tron-logo">Code</span>
-          </Link>
-
-          <nav className="hidden md:flex space-x-6 items-center">
-            {isLoggedIn ? (
-              <>
-                <Link
-                  to={`${baseUrl}/account/${username}`}
-                  className="text-lg hover:text-[#00f0ff] hover:underline decoration-[#00f0ff] underline-offset-4 transition-all duration-200 focus:outline-none font-mono"
-                  title={username.trim()}
-                  aria-label={`Go to ${formatUsername(username)}'s account`}
-                >
-                  {formatUsername(username)}'s Account
-                </Link>
-                <button
-                  onClick={handleLogout}
-                  className="text-lg hover:text-[#00f0ff] hover:underline decoration-[#00f0ff] underline-offset-4 transition-all duration-200 cursor-pointer focus:outline-none font-mono"
-                  disabled={isLoading}
-                >
-                  Logout
-                </button>
-              </>
-            ) : (
-              <>
-                <Link
-                  to={`${baseUrl}/login`}
-                  className="text-lg hover:text-[#00f0ff] hover:underline decoration-[#00f0ff] underline-offset-4 transition-all duration-200 focus:outline-none font-mono"
-                  aria-label="Go to Login page"
-                >
-                  Login
-                </Link>
-                <Link
-                  to={`${baseUrl}/register`}
-                  className="text-lg hover:text-[#00f0ff] hover:underline decoration-[#00f0ff] underline-offset-4 transition-all duration-200 focus:outline-none font-mono"
-                  aria-label="Go to Register page"
-                >
-                  Register
-                </Link>
-              </>
-            )}
-          </nav>
-
-          <div className="flex items-center space-x-4">
-            <button
-              onClick={toggleTheme}
-              className="text-xl focus:outline-none p-2 rounded-full cursor-pointer hover:bg-gray-700/50 hover:border hover:border-[#00f0ff] hover:text-[#00f0ff] transition-all duration-200"
-              title={isDarkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
+      <header className="bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border-b border-gray-200 dark:border-gray-800 sticky top-0 z-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center h-16">
+            {/* Logo */}
+            <Link
+              to={`${baseUrl}`}
+              aria-label="Go to CodeBuddi homepage"
+              className="flex items-center space-x-2 group"
             >
-              {isDarkMode ? (
-                <RxMoon className="text-[#00f0ff]" />
-              ) : (
-                <RxSun className="text-[#00d4ff]" />
-              )}
-            </button>
+              <span className="text-2xl font-bold bg-gradient-to-r from-cyan-500 to-blue-500 bg-clip-text text-transparent">
+                CodeBuddi
+              </span>
+            </Link>
 
-            <button
-              onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-              className="text-xl focus:outline-none p-2 rounded-full hover:bg-gray-700/50 hover:border hover:border-[#00f0ff] transition-all duration-200 md:hidden"
-            >
-              {!isDropdownOpen ? (
-                <FaBarsStaggered className="text-[#00f0ff]" />
-              ) : (
-                <SiIfixit className="text-[#00f0ff]" />
-              )}
-            </button>
-          </div>
-        </div>
-
-        <nav className="md:hidden mt-4">
-          {isDropdownOpen && (
-            <div className="space-y-4 mt-4 bg-gray-800/95 dark:bg-gray-900/95 p-4 rounded-md border border-[#00f0ff]/30 backdrop-blur-xl">
+            {/* Desktop Navigation */}
+            <nav className="hidden md:flex items-center space-x-6">
               {isLoggedIn ? (
                 <>
                   <Link
                     to={`${baseUrl}/account/${username}`}
-                    className="block text-lg text-center focus:outline-none hover:text-[#00f0ff] font-mono"
+                    className="text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors"
                     title={username.trim()}
-                    aria-label={`Go to ${formatUsername(
-                      username
-                    )}'s account page`}
+                    aria-label={`Go to ${formatUsername(username)}'s account`}
+                  >
+                    {formatUsername(username)}'s Account
+                  </Link>
+                  <button
+                    onClick={handleLogout}
+                    className="text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors"
+                    disabled={isLoading}
+                  >
+                    Logout
+                  </button>
+                </>
+              ) : (
+                <>
+                  <Link
+                    to={`${baseUrl}/login`}
+                    className="text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors"
+                    aria-label="Go to Login page"
+                  >
+                    Login
+                  </Link>
+                  <Link
+                    to={`${baseUrl}/register`}
+                    className="px-4 py-2 text-sm font-medium text-white bg-gradient-to-r from-cyan-500 to-blue-500 rounded-lg hover:from-cyan-600 hover:to-blue-600 transition-all duration-200 shadow-md hover:shadow-lg"
+                    aria-label="Go to Register page"
+                  >
+                    Register
+                  </Link>
+                </>
+              )}
+            </nav>
+
+            {/* Right Side Actions */}
+            <div className="flex items-center space-x-3">
+              {/* Theme Toggle */}
+              <button
+                onClick={toggleTheme}
+                className="p-2 rounded-lg text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                title={isDarkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
+              >
+                {isDarkMode ? (
+                  <RxMoon className="w-5 h-5" />
+                ) : (
+                  <RxSun className="w-5 h-5" />
+                )}
+              </button>
+
+              {/* Mobile Menu Toggle */}
+              <button
+                onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                className="p-2 rounded-lg text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors md:hidden"
+              >
+                {!isDropdownOpen ? (
+                  <FaBarsStaggered className="w-5 h-5" />
+                ) : (
+                  <SiIfixit className="w-5 h-5" />
+                )}
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* Mobile Navigation */}
+        <nav className="md:hidden border-t border-gray-200 dark:border-gray-800">
+          {isDropdownOpen && (
+            <div className="px-4 py-4 space-y-3 bg-white dark:bg-gray-900">
+              {isLoggedIn ? (
+                <>
+                  <Link
+                    to={`${baseUrl}/account/${username}`}
+                    className="block text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-cyan-600 dark:hover:text-cyan-400"
+                    title={username.trim()}
+                    aria-label={`Go to ${formatUsername(username)}'s account page`}
                     onClick={() => setIsDropdownOpen(false)}
                   >
                     {formatUsername(username)}'s Account
@@ -272,7 +280,7 @@ const Header = ({ isDarkMode, toggleTheme }) => {
                       handleLogout();
                       setIsDropdownOpen(false);
                     }}
-                    className="block text-lg text-center focus:outline-none hover:text-[#00f0ff] w-full font-mono"
+                    className="block w-full text-left text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-cyan-600 dark:hover:text-cyan-400"
                     disabled={isLoading}
                   >
                     Logout
@@ -282,7 +290,7 @@ const Header = ({ isDarkMode, toggleTheme }) => {
                 <>
                   <Link
                     to="/login"
-                    className="block text-lg text-center focus:outline-none hover:text-[#00f0ff] hover:underline decoration-[#00f0ff] underline-offset-4 font-mono"
+                    className="block text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-cyan-600 dark:hover:text-cyan-400"
                     aria-label="Go to Login page"
                     onClick={() => setIsDropdownOpen(false)}
                   >
@@ -290,7 +298,7 @@ const Header = ({ isDarkMode, toggleTheme }) => {
                   </Link>
                   <Link
                     to="/register"
-                    className="block text-lg text-center focus:outline-none hover:text-[#00f0ff] hover:underline decoration-[#00f0ff] underline-offset-4 font-mono"
+                    className="block text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-cyan-600 dark:hover:text-cyan-400"
                     aria-label="Go to Register page"
                     onClick={() => setIsDropdownOpen(false)}
                   >
