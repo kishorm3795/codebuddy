@@ -7,9 +7,9 @@
 
 /* Tron Legacy Color Variables */
 :root {
-  --tron-cyan: #00f0ff;
+  --tron-cyan: #00ffff;
   --tron-cyan-dim: #00c4d4;
-  --tron-blue: #00d4ff;
+  --tron-blue: #00ccff;
   --tron-dark: #0a0a0a;
   --tron-gray: #1a1a2e;
   --tron-surface: #0f172a;
@@ -673,8 +673,8 @@ code, pre, .font-mono {
 }
 
 .tron-card-advanced:hover {
-  transform: translateY(-5px) scale(1.02);
-  box-shadow: 0 0 40px rgba(0, 240, 255, 0.3);
+  transform: translateY(-8px) scale(1.03);
+  box-shadow: 0 0 50px rgba(0, 255, 255, 0.4), 0 0 20px rgba(0, 255, 255, 0.2);
 }
 
 /* Holographic Text Effect */
@@ -682,16 +682,17 @@ code, pre, .font-mono {
   background: linear-gradient(
     135deg,
     var(--tron-cyan) 0%,
-    var(--tron-blue) 25%,
-    var(--tron-purple) 50%,
-    var(--tron-orange) 75%,
+    var(--tron-blue) 20%,
+    var(--tron-purple) 40%,
+    var(--tron-orange) 60%,
+    var(--tron-green) 80%,
     var(--tron-cyan) 100%
   );
-  background-size: 300% 300%;
+  background-size: 400% 400%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  animation: holographic-shift 5s ease infinite;
+  animation: holographic-shift 8s ease infinite;
 }
 
 @keyframes holographic-shift {
@@ -716,16 +717,17 @@ code, pre, .font-mono {
   background: repeating-linear-gradient(
     0deg,
     transparent 0px,
-    transparent 50px,
-    rgba(0, 240, 255, 0.03) 50px,
-    rgba(0, 240, 255, 0.03) 51px
+    transparent 40px,
+    rgba(0, 255, 255, 0.05) 40px,
+    rgba(0, 255, 255, 0.05) 41px
   );
-  animation: digital-rain 10s linear infinite;
+  background-size: 100% 80px;
+  animation: digital-rain 4s linear infinite;
 }
 
 @keyframes digital-rain {
-  0% { transform: translateY(-100%); }
-  100% { transform: translateY(100%); }
+  0% { background-position: 0 0; }
+  100% { background-position: 0 80px; }
 }
 
 /* Neon Border Animation */

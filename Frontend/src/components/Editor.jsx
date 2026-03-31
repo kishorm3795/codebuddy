@@ -62,13 +62,13 @@ const EditorSection = ({
   };
 
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 overflow-hidden">
+    <div className="bg-white dark:bg-gray-800/50 backdrop-blur-md rounded-xl shadow-lg border border-gray-200 dark:border-cyan-500/20 overflow-hidden tron-glass">
       {/* Section Header */}
-      <div className="flex items-center px-4 py-3 bg-gray-50 dark:bg-gray-800/50 border-b border-gray-200 dark:border-gray-700">
-        <div className={`p-2 bg-gradient-to-br ${getGradient()} rounded-lg mr-3`}>
+      <div className="flex items-center px-4 py-3 bg-gray-50/50 dark:bg-gray-800/30 border-b border-gray-200 dark:border-cyan-500/10">
+        <div className={`p-2 bg-gradient-to-br ${getGradient()} rounded-lg mr-3 shadow-lg`}>
           {React.createElement(getLanguageIcon(), { className: "text-lg text-white" })}
         </div>
-        <h2 className="text-base font-semibold text-gray-700 dark:text-gray-200">
+        <h2 className="text-base font-bold text-gray-700 dark:text-cyan-400 tracking-wider">
           {capFirst(language)}
         </h2>
       </div>
@@ -1294,12 +1294,12 @@ const Editor = ({ isDarkMode, value, title, shareIdData }) => {
       </div>
       
       {/* Action Buttons */}
-      <div className="mt-4 flex flex-wrap justify-center gap-3">
+      <div className="mt-6 flex flex-wrap justify-center gap-4">
         {buttonData.map(({ onClick, color, icon, text, disabled }, index) => (
           <button
             key={index}
             onClick={onClick}
-            className={`px-5 py-2.5 ${color} text-white inline-flex items-center justify-center rounded-lg w-full sm:w-auto font-medium text-sm transition-all duration-200 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500 disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:shadow-none`}
+            className={`px-6 py-2.5 ${color} text-white inline-flex items-center justify-center rounded-lg w-full sm:w-auto font-bold text-sm transition-all duration-300 hover:shadow-[0_0_20px_rgba(0,255,255,0.3)] focus:outline-none focus:ring-2 focus:ring-cyan-500 disabled:opacity-50 disabled:cursor-not-allowed tron-btn`}
             disabled={disabled}
           >
             <span className="mr-2">{icon}</span>
@@ -1346,10 +1346,10 @@ const Editor = ({ isDarkMode, value, title, shareIdData }) => {
         
         {/* Loading Overlay */}
         {isOverlayVisible && overlayText && (
-          <div className="absolute inset-0 bg-white/90 dark:bg-gray-900/90 flex justify-center items-center z-10">
-            <div className="flex items-center space-x-3 bg-white dark:bg-gray-800 px-6 py-4 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700">
-              <FaSpinner className="text-2xl text-cyan-500 animate-spin" />
-              <span className="text-sm font-medium text-gray-600 dark:text-gray-300">
+          <div className="absolute inset-0 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md flex justify-center items-center z-10 tron-glass">
+            <div className="flex flex-col items-center space-y-4 bg-white/50 dark:bg-gray-800/50 px-8 py-6 rounded-2xl shadow-2xl border border-cyan-500/30 tron-card-advanced">
+              <FaSpinner className="text-4xl text-cyan-400 animate-spin" />
+              <span className="text-lg font-bold text-gray-700 dark:text-cyan-400 tron-holographic animate-pulse">
                 {overlayText}
               </span>
             </div>

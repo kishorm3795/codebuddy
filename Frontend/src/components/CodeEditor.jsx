@@ -1160,17 +1160,17 @@ const CodeEditor = ({
 
   const RenderOutput = () => (
     <>
-      <div className="mt-4">
-        <div className="bg-gray-100 dark:bg-gray-800 rounded-t-lg p-3 border border-gray-200 dark:border-gray-700">
+      <div className="mt-6 tron-glass rounded-xl overflow-hidden border border-gray-200 dark:border-cyan-500/20 shadow-xl">
+        <div className="bg-gray-100/50 dark:bg-gray-800/50 p-3 border-b border-gray-200 dark:border-cyan-500/10">
           <div className="flex items-center space-x-2">
-            <BiTerminal className="ml-2 text-xl text-cyan-500" />
-            <h2 className="text-lg font-semibold text-gray-700 dark:text-gray-200">Output</h2>
+            <BiTerminal className="ml-2 text-xl text-cyan-400" />
+            <h2 className="text-lg font-bold text-gray-700 dark:text-cyan-400 tracking-wide">Output</h2>
           </div>
         </div>
 
         <pre
           ref={terminalRef}
-          className="select-text font-mono text-xs font-semibold lg:text-sm focus:outline-none min-h-20 max-h-[295px] overflow-auto p-4 rounded-b-lg bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-green-400 border border-t-0 border-gray-200 dark:border-gray-700"
+          className="select-text font-mono text-xs font-semibold lg:text-sm focus:outline-none min-h-32 max-h-[400px] overflow-auto p-5 bg-gray-50/80 dark:bg-black/40 text-gray-800 dark:text-green-400 backdrop-blur-sm"
         >
           {output}
         </pre>
@@ -1183,16 +1183,16 @@ const CodeEditor = ({
 
   return (
     <div className="mx-auto p-4 max-w-6xl">
-      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 overflow-hidden">
+      <div className="bg-white dark:bg-gray-800/50 backdrop-blur-md rounded-xl shadow-lg border border-gray-200 dark:border-cyan-500/20 overflow-hidden tron-glass">
         {/* Editor Header */}
-        <div className="flex items-center justify-between px-4 py-3 bg-gray-50 dark:bg-gray-800/50 border-b border-gray-200 dark:border-gray-700">
+        <div className="flex items-center justify-between px-4 py-3 bg-gray-50/50 dark:bg-gray-800/30 border-b border-gray-200 dark:border-cyan-500/10">
           <div className="flex items-center space-x-3">
             {reactIcon && (
-              <div className="p-2 bg-gradient-to-br from-cyan-500 to-blue-500 rounded-lg">
+              <div className="p-2 bg-gradient-to-br from-cyan-400 to-blue-500 rounded-lg shadow-lg">
                 {React.createElement(reactIcon, { className: "text-lg text-white" })}
               </div>
             )}
-            <h2 className="text-lg font-semibold text-gray-800 dark:text-white">
+            <h2 className="text-lg font-bold text-gray-800 dark:text-cyan-400 tracking-wider">
               {language.charAt(0).toUpperCase() + language.slice(1)} Editor
             </h2>
           </div>
@@ -1236,13 +1236,13 @@ const CodeEditor = ({
       </div>
       
       {/* Action Buttons */}
-      <div className="mt-4 flex flex-wrap justify-center gap-3">
+      <div className="mt-6 flex flex-wrap justify-center gap-4">
         {buttonsConfig.map(
           ({ action, bgColor, icon, text, disabled }, index) => (
             <button
               key={index}
               onClick={action}
-              className={`px-5 py-2.5 ${bgColor} text-white inline-flex items-center justify-center rounded-lg w-full sm:w-auto font-medium text-sm transition-all duration-200 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500 disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:shadow-none`}
+              className={`px-6 py-2.5 ${bgColor} text-white inline-flex items-center justify-center rounded-lg w-full sm:w-auto font-bold text-sm transition-all duration-300 hover:shadow-[0_0_20px_rgba(0,255,255,0.3)] focus:outline-none focus:ring-2 focus:ring-cyan-500 disabled:opacity-50 disabled:cursor-not-allowed tron-btn shadow-lg`}
               disabled={disabled}
             >
               <span className="mr-2">{icon}</span>
