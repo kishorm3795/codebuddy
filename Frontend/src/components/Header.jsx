@@ -175,27 +175,31 @@ const Header = ({ isDarkMode, toggleTheme }) => {
         </div>
       )}
 
-      <header className="bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border-b border-gray-200 dark:border-gray-800 sticky top-0 z-50">
+      <header className="bg-white/70 dark:bg-gray-950/70 backdrop-blur-2xl border-b border-cyan-500/20 sticky top-0 z-50 transition-all duration-300">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             {/* Logo */}
             <Link
               to={`${baseUrl}`}
               aria-label="Go to CodeBuddi homepage"
-              className="flex items-center space-x-2 group"
+              className="flex items-center space-x-2 group relative"
             >
-              <span className="text-2xl font-bold bg-gradient-to-r from-cyan-500 to-blue-500 bg-clip-text text-transparent">
+              <span
+                className="text-2xl font-bold bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent group-hover:tron-glitch"
+                data-text="CodeBuddi"
+              >
                 CodeBuddi
               </span>
+              <div className="absolute -bottom-1 left-0 w-0 h-0.5 bg-cyan-400 group-hover:w-full transition-all duration-300 shadow-[0_0_10px_#00ffff]"></div>
             </Link>
 
             {/* Desktop Navigation */}
-            <nav className="hidden md:flex items-center space-x-6">
+            <nav className="hidden md:flex items-center space-x-8">
               {isLoggedIn ? (
                 <>
                   <Link
                     to={`${baseUrl}/account/${username}`}
-                    className="text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors"
+                    className="text-sm font-semibold text-gray-700 dark:text-gray-300 hover:text-cyan-400 hover:tron-glow-text transition-all duration-300"
                     title={username.trim()}
                     aria-label={`Go to ${formatUsername(username)}'s account`}
                   >
@@ -203,7 +207,7 @@ const Header = ({ isDarkMode, toggleTheme }) => {
                   </Link>
                   <button
                     onClick={handleLogout}
-                    className="text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors"
+                    className="text-sm font-semibold text-gray-700 dark:text-gray-300 hover:text-red-400 hover:tron-glow-red transition-all duration-300 cursor-pointer"
                     disabled={isLoading}
                   >
                     Logout
@@ -213,14 +217,14 @@ const Header = ({ isDarkMode, toggleTheme }) => {
                 <>
                   <Link
                     to={`${baseUrl}/login`}
-                    className="text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors"
+                    className="text-sm font-semibold text-gray-700 dark:text-gray-300 hover:text-cyan-400 hover:tron-glow-text transition-all duration-300"
                     aria-label="Go to Login page"
                   >
                     Login
                   </Link>
                   <Link
                     to={`${baseUrl}/register`}
-                    className="px-4 py-2 text-sm font-medium text-white bg-gradient-to-r from-cyan-500 to-blue-500 rounded-lg hover:from-cyan-600 hover:to-blue-600 transition-all duration-200 shadow-md hover:shadow-lg"
+                    className="px-5 py-2 text-sm font-bold text-gray-900 bg-cyan-400 rounded-md hover:bg-cyan-300 transition-all duration-300 shadow-[0_0_15px_rgba(0,255,255,0.4)] hover:shadow-[0_0_25px_rgba(0,255,255,0.6)] transform hover:-translate-y-0.5"
                     aria-label="Go to Register page"
                   >
                     Register

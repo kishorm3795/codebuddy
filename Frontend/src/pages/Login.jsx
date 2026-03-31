@@ -142,15 +142,15 @@ const Login = () => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-[80dvh] bg-gray-50 dark:bg-gray-950 px-4 relative overflow-hidden">
+    <div className="flex items-center justify-center min-h-[80dvh] bg-gray-50 dark:bg-gray-950 px-4 relative overflow-hidden tron-grid-bg tron-scanlines">
       {/* Background Effects */}
-      <div className="absolute inset-0 tron-grid opacity-20"></div>
+      <div className="absolute inset-0 tron-digital-rain opacity-10"></div>
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
         <div className="absolute top-10 right-10 w-32 h-32 bg-[#bf00ff] rounded-full filter blur-[100px] opacity-10 animate-pulse"></div>
         <div className="absolute bottom-10 left-10 w-40 h-40 bg-[#00f0ff] rounded-full filter blur-[100px] opacity-10 animate-pulse"></div>
       </div>
 
-      <div className="w-full max-w-md bg-white dark:bg-gray-900 rounded-2xl shadow-xl p-8 relative tron-border">
+      <div className="w-full max-w-md bg-white/90 dark:bg-gray-900/90 backdrop-blur-xl rounded-2xl shadow-xl p-8 relative tron-card-advanced border border-cyan-500/30">
         {/* Header */}
         <div className="text-center mb-8">
           <h2 className="text-3xl font-bold tron-text-gradient mb-2 font-['Orbitron']">
@@ -162,26 +162,31 @@ const Login = () => {
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-5">
-          <InputField
-            label="Email"
-            type="email"
-            name="email"
-            value={formData.email}
-            onChange={handleInputChange}
-            required
-            disabled={loading}
-          />
-          <InputField
-            label="Password"
-            type={showPassword ? "text" : "password"}
-            name="password"
-            value={formData.password}
-            onChange={handleInputChange}
-            required
-            showPassword={showPassword}
-            onTogglePassword={() => setShowPassword((prev) => !prev)}
-            disabled={loading}
-          />
+          <div className="focus-within:tron-glow-sm rounded-lg transition-all duration-300">
+            <InputField
+              label="Email"
+              type="email"
+              name="email"
+              value={formData.email}
+              onChange={handleInputChange}
+              required
+              disabled={loading}
+            />
+          </div>
+
+          <div className="focus-within:tron-glow-sm rounded-lg transition-all duration-300">
+            <InputField
+              label="Password"
+              type={showPassword ? "text" : "password"}
+              name="password"
+              value={formData.password}
+              onChange={handleInputChange}
+              required
+              showPassword={showPassword}
+              onTogglePassword={() => setShowPassword((prev) => !prev)}
+              disabled={loading}
+            />
+          </div>
 
           {error && (
             <p className="text-[#ff0055] text-sm text-center font-mono">

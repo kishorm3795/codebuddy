@@ -1,145 +1,152 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import SharedLinks from "./SharedLinks";
+import {
+  SiPython, SiJavascript, SiCplusplus, SiRust,
+  SiGo, SiMongodb, SiSwift, SiRuby, SiTypescript,
+  SiDart, SiKotlin, SiScala, SiJulia, SiPostgresql, SiPerl
+} from "react-icons/si";
+import { FaHtml5, FaCss3Alt, FaC, FaJava } from "react-icons/fa6";
+import { TbBinaryTree, TbBrandCSharp } from "react-icons/tb";
 
 const navLinks = [
   {
     to: "/htmlcssjs",
     text: "HTML, CSS, JS",
-    icon: "🌐",
+    icon: <div className="flex space-x-1"><FaHtml5 /><FaCss3Alt /><SiJavascript /></div>,
     classes: "from-blue-500 to-cyan-500",
     glowColor: "rgba(59, 130, 246, 0.5)",
   },
   {
     to: "/python",
     text: "Python",
-    icon: "🐍",
+    icon: <SiPython />,
     classes: "from-green-500 to-emerald-500",
     glowColor: "rgba(34, 197, 94, 0.5)",
   },
   {
     to: "/javascript",
     text: "Javascript",
-    icon: "⚡",
+    icon: <SiJavascript />,
     classes: "from-yellow-400 to-orange-500",
     glowColor: "rgba(234, 179, 8, 0.5)",
   },
   {
     to: "/c",
     text: "C",
-    icon: "©",
+    icon: <FaC />,
     classes: "from-blue-600 to-blue-700",
     glowColor: "rgba(37, 99, 235, 0.5)",
   },
   {
     to: "/cpp",
     text: "C++",
-    icon: "⚙️",
+    icon: <SiCplusplus />,
     classes: "from-blue-700 to-indigo-600",
     glowColor: "rgba(67, 56, 202, 0.5)",
   },
   {
     to: "/java",
     text: "Java",
-    icon: "☕",
+    icon: <FaJava />,
     classes: "from-orange-500 to-red-500",
     glowColor: "rgba(249, 115, 22, 0.5)",
   },
   {
     to: "/csharp",
     text: "C#",
-    icon: "♯",
+    icon: <TbBrandCSharp />,
     classes: "from-purple-500 to-violet-600",
     glowColor: "rgba(168, 85, 247, 0.5)",
   },
   {
     to: "/rust",
     text: "Rust",
-    icon: "🦀",
+    icon: <SiRust />,
     classes: "from-orange-600 to-amber-600",
     glowColor: "rgba(217, 119, 6, 0.5)",
   },
   {
     to: "/go",
     text: "Go",
-    icon: "🔵",
+    icon: <SiGo />,
     classes: "from-cyan-500 to-teal-500",
     glowColor: "rgba(6, 182, 212, 0.5)",
   },
   {
     to: "/verilog",
     text: "Verilog",
-    icon: "🔲",
+    icon: <TbBinaryTree />,
     classes: "from-gray-500 to-gray-600",
     glowColor: "rgba(107, 114, 128, 0.5)",
   },
   {
     to: "/sql",
     text: "SQL",
-    icon: "🗄️",
+    icon: <SiPostgresql />,
     classes: "from-blue-500 to-indigo-500",
     glowColor: "rgba(99, 102, 241, 0.5)",
   },
   {
     to: "/mongodb",
     text: "MongoDB",
-    icon: "🍃",
+    icon: <SiMongodb />,
     classes: "from-green-500 to-lime-500",
     glowColor: "rgba(132, 204, 22, 0.5)",
   },
   {
     to: "/swift",
     text: "Swift",
-    icon: "🍎",
+    icon: <SiSwift />,
     classes: "from-orange-500 to-red-500",
     glowColor: "rgba(251, 146, 60, 0.5)",
   },
   {
     to: "/ruby",
     text: "Ruby",
-    icon: "💎",
+    icon: <SiRuby />,
     classes: "from-red-500 to-rose-600",
     glowColor: "rgba(239, 68, 68, 0.5)",
   },
   {
     to: "/typescript",
     text: "Typescript",
-    icon: "📘",
+    icon: <SiTypescript />,
     classes: "from-blue-600 to-blue-500",
     glowColor: "rgba(37, 99, 235, 0.5)",
   },
   {
     to: "/dart",
     text: "Dart",
-    icon: "🎯",
+    icon: <SiDart />,
     classes: "from-cyan-400 to-blue-500",
     glowColor: "rgba(34, 211, 238, 0.5)",
   },
   {
     to: "/kotlin",
     text: "Kotlin",
-    icon: "🟣",
+    icon: <SiKotlin />,
     classes: "from-violet-500 to-purple-600",
     glowColor: "rgba(139, 92, 246, 0.5)",
   },
   {
     to: "/perl",
     text: "Perl",
-    icon: "🐪",
+    icon: <SiPerl />,
     classes: "from-pink-500 to-rose-500",
     glowColor: "rgba(236, 72, 153, 0.5)",
   },
   {
     to: "/scala",
     text: "Scala",
-    icon: "🎼",
+    icon: <SiScala />,
     classes: "from-red-500 to-gray-500",
     glowColor: "rgba(239, 68, 68, 0.5)",
   },
   {
     to: "/julia",
     text: "Julia",
-    icon: "🔮",
+    icon: <SiJulia />,
     classes: "from-purple-400 to-pink-500",
     glowColor: "rgba(192, 132, 252, 0.5)",
   },
@@ -173,7 +180,7 @@ const TronCard = ({ to, text, icon, classes, glowColor }) => {
         transform transition-all duration-300
         hover:scale-105 hover:-translate-y-1
         shadow-lg hover:shadow-xl
-        group
+        group tron-card-advanced
       `}
       style={{
         "--glow-color": glowColor,
@@ -212,10 +219,14 @@ const NavigationLinks = () => {
   return (
     <>
       {/* Hero Section */}
-      <div className="relative flex flex-col items-center justify-center min-h-[35vh] px-4 pt-16 pb-8">
+      <div className="relative flex flex-col items-center justify-center min-h-[40vh] px-4 pt-20 pb-12 tron-particles tron-bg-lines overflow-hidden">
+        {/* Animated Background Grids */}
+        <div className="absolute inset-0 tron-grid-bg opacity-30"></div>
+        <div className="absolute inset-0 tron-digital-rain opacity-10"></div>
+
         {/* Title */}
-        <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 text-center">
-          <span className="bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 bg-clip-text text-transparent">
+        <h1 className="text-5xl md:text-6xl lg:text-8xl font-black mb-6 text-center z-10">
+          <span className="tron-holographic tron-title-glow tracking-tighter">
             CodeBuddi
           </span>
         </h1>

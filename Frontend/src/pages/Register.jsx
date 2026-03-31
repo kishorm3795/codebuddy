@@ -330,15 +330,15 @@ const Register = () => {
   }, [canResendOtp]);
 
   return (
-    <div className="flex justify-center items-center min-h-[80dvh] bg-gray-100 dark:bg-gray-950 md:min-h-[90dvh] relative overflow-hidden">
+    <div className="flex justify-center items-center min-h-[80dvh] bg-gray-100 dark:bg-gray-950 md:min-h-[90dvh] relative overflow-hidden tron-grid-bg tron-scanlines">
       {/* Background Effects */}
-      <div className="absolute inset-0 tron-grid opacity-20"></div>
+      <div className="absolute inset-0 tron-digital-rain opacity-10"></div>
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
         <div className="absolute top-10 right-10 w-32 h-32 bg-[#bf00ff] rounded-full filter blur-[100px] opacity-10 animate-pulse"></div>
         <div className="absolute bottom-10 left-10 w-40 h-40 bg-[#00f0ff] rounded-full filter blur-[100px] opacity-10 animate-pulse"></div>
       </div>
 
-      <div className="bg-white dark:bg-gray-900/90 p-8 rounded-lg shadow-2xl w-full max-w-md relative z-10 tron-border">
+      <div className="bg-white/90 dark:bg-gray-900/90 backdrop-blur-xl p-8 rounded-lg shadow-2xl w-full max-w-md relative z-10 tron-card-advanced border border-cyan-500/30">
         {/* Header */}
         <div className="text-center mb-6">
           <h2 className="text-3xl font-bold tron-text-gradient mb-2 font-['Orbitron']">
@@ -374,18 +374,20 @@ const Register = () => {
 
         {!otpSent ? (
           <>
-            <form onSubmit={handleSubmit}>
-              <InputField
-                label="Username"
-                type="text"
-                name="username"
-                value={formData.username}
-                onChange={handleInputChange}
-                required
-                disabled={loading}
-              />
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <div className="focus-within:tron-glow-sm rounded-lg transition-all duration-300">
+                <InputField
+                  label="Username"
+                  type="text"
+                  name="username"
+                  value={formData.username}
+                  onChange={handleInputChange}
+                  required
+                  disabled={loading}
+                />
+              </div>
 
-              <div className="relative mb-4">
+              <div className="focus-within:tron-glow-sm rounded-lg transition-all duration-300">
                 <InputField
                   label="Email"
                   type="email"
@@ -397,17 +399,19 @@ const Register = () => {
                 />
               </div>
 
-              <InputField
-                label="Password"
-                type={showPassword ? "text" : "password"}
-                name="newPassword"
-                value={formData.newPassword}
-                onChange={handleInputChange}
-                required
-                showPassword={showPassword}
-                onTogglePassword={() => setShowPassword((prev) => !prev)}
-                disabled={loading}
-              />
+              <div className="focus-within:tron-glow-sm rounded-lg transition-all duration-300">
+                <InputField
+                  label="Password"
+                  type={showPassword ? "text" : "password"}
+                  name="newPassword"
+                  value={formData.newPassword}
+                  onChange={handleInputChange}
+                  required
+                  showPassword={showPassword}
+                  onTogglePassword={() => setShowPassword((prev) => !prev)}
+                  disabled={loading}
+                />
+              </div>
 
               {error && (
                 <p className="text-[#ff0055] dark:text-[#ff0055] text-center my-4 font-mono text-sm">
